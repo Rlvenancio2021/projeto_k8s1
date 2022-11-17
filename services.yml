@@ -1,0 +1,25 @@
+# Criando Load Balancer
+apiVersion: v1
+kind: Service
+metadata:
+  name: php
+spec:
+  selector:
+    app: php
+  ports:
+    - port: 80
+      targetPort: 80
+  type: LoadBalancer
+
+---
+# Serviço de conexão com o Banco de Dados
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-connection  # Nome da conexão com o BackEnd necessário informar no arquivo "conexao.php"
+spec:
+  ports:
+  - port: 3306
+  selector:
+    app: mysql
+  clusterIP: None
